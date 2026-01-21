@@ -1,6 +1,3 @@
-# Corteva_coding_assessment
-Files for Corteva weather data coding assessment
-=======
 # Weather Data API - Corteva Coding Exercise
 
 ## Overview
