@@ -2,7 +2,10 @@
 
 """
 This script ingests weather and crop yield data, calculating averages and sums as needed, loads them into SQLite databases and then launches a REST API for viewing and filtering the data. See README and requirements files for further information.
+<<<<<<< HEAD
+=======
 Author: Jake Campbell
+>>>>>>> 962761a (Initial commit: Corteva Weather API project)
 Created: 01-20-2026
 """
 
@@ -13,7 +16,19 @@ import time
 from tqdm import tqdm
 import pandas as pd
 import numpy as np
+import logging
 from weather_utils import load_all_weather_files, Timer
+
+# Configure logging setup
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler('weather_ingestion.log'),
+        logging.StreamHandler()  # Also prints to console
+    ]
+)
+logger = logging.getLogger(__name__)
 
 # Table creation definitions (3)
 def create_weather_table(cursor):
@@ -116,7 +131,7 @@ def main():
                     (col1, col2)
                 )
             except ValueError as e:
-                print(f"Line {line_num} in {yld_filepath} has incorrect format: {line}")
+                logger.info(f"Line {line_num} in {yld_filepath} has incorrect format: {line}")
                 continue  # Skip bad lines
                 
     ################################### Yield Data ###########################################
@@ -125,22 +140,22 @@ def main():
     conn.commit()
 
     # Timer completion
-    print("Data successfully imported into weather, yearly, and yield SQLite tables.")
+    logger.info("Data successfully imported into weather, yearly, and yield SQLite tables.")
     elapsed = t.stop()
-    print(f"Elapsed processing time: {elapsed:.6f} seconds")
+    logger.info(f"Elapsed processing time: {elapsed:.6f} seconds")
     
     # To see how many records are in each table
     cur.execute('SELECT COUNT(*) FROM weather')
     count0 = cur.fetchone()[0]
-    print(f"\nTotal records in the weather station table: {count0}")
+    logger.info(f"\nTotal records in the weather station table: {count0}")
 
     cur.execute('SELECT COUNT(*) FROM weather_yearly')
     count1 = cur.fetchone()[0]
-    print(f"\nTotal records in the yearly table: {count1}")
+    logger.info(f"\nTotal records in the yearly table: {count1}")
 
     cur.execute('SELECT COUNT(*) FROM crop_yields')
     count2 = cur.fetchone()[0]
-    print(f"\nTotal records in the weather station table: {count2}")
+    logger.info(f"\nTotal records in the crop yield table: {count2}")
 
     # Close db when done
     conn.close()
