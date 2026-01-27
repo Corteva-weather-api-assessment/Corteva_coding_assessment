@@ -2,10 +2,7 @@
 
 """
 This script ingests weather and crop yield data, calculating averages and sums as needed, loads them into SQLite databases and then launches a REST API for viewing and filtering the data. See README and requirements files for further information.
-<<<<<<< HEAD
-=======
 Author: Jake Campbell
->>>>>>> 962761a (Initial commit: Corteva Weather API project)
 Created: 01-20-2026
 """
 
@@ -32,7 +29,6 @@ logger = logging.getLogger(__name__)
 
 # Table creation definitions (3)
 def create_weather_table(cursor):
-    """Create the weather table if it doesn't exist."""
     cursor.execute('DROP TABLE IF EXISTS weather')
     cursor.execute('''
         CREATE TABLE weather (
@@ -45,7 +41,6 @@ def create_weather_table(cursor):
         )
     ''')
 def create_yearly_table(cursor):
-    """Create yearly weather table if it doesn't exist"""
     cursor.execute('DROP TABLE IF EXISTS weather_yearly')
     cursor.execute('''
         CREATE TABLE weather_yearly (

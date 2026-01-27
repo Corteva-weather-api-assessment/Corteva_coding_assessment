@@ -49,6 +49,7 @@ def home():
 @app.route('/api/weather', methods=['GET'])
 def get_weather():
     """
+    ---
     parameters:
       - name: station
         in: query
@@ -149,6 +150,7 @@ def get_weather():
 @app.route('/api/weather/stats', methods=['GET'])
 def get_weather_stats():
     """
+    ---
     parameters:
       - name: station
         in: query
@@ -249,6 +251,7 @@ def get_weather_stats():
 @app.route('/api/weather/yield', methods=['GET'])
 def get_yield():
     """
+    ---
     parameters:
       - name: year
         in: query
